@@ -105,7 +105,6 @@ return {
 				},
 			},
 			j_pud_brickell = {
-				name = "海軍上將",
 				text = {
 					"重骰時獲得{X:red,C:white}X#2#{}倍率",
 					"回合結束時重製",
@@ -174,10 +173,15 @@ return {
 				},
 			},
 			j_pud_corvus = {
-				name = "耐削王牢科 (v43-48)",
 				text = {
 					"每{C:attention}3{}次出牌產生一張{C:spectral}火祭{}",
 					"{C:inactive}剩餘#1#次{}",
+				},
+			},
+			j_pud_cripplemoab = {
+				name = "殘廢MOAB (v37-49)",
+				text = {
+					"出牌時{C:attention}-28%{}盲注所需分數",
 				},
 			},
 			j_pud_doreostream = {
@@ -187,7 +191,6 @@ return {
 				},
 			},
 			j_pud_ezili = {
-				name = "巫毒法師",
 				text = {
 					"{C:purple}平衡{}{C:blue}籌碼{}和{C:red}倍率{}",
 				},
@@ -238,6 +241,13 @@ return {
 					"出牌時此數值乘以{C:red}#2#{}",
 				},
 			},
+			j_sholium_gluestorm = {
+				name = "膠水風暴(v39+)",
+				text = {
+					"每兩次出牌重新觸發所有",
+					"手中的牌{C:attention}2{}次{C:inactive}(#1#){}",
+				},
+			},
 			j_pud_groundzero = {
 				name = "寸草不生(v18-29)",
 				text = {
@@ -246,7 +256,6 @@ return {
 				},
 			},
 			j_pud_geraldo = {
-				name = "杰拉爾多(v31.0)",
 				text = {
 					"商店重骰時產生一個隨機標籤",
 					"{C:inactive}Ah yes 一般稀有度{}",
@@ -379,7 +388,6 @@ return {
 				},
 			},
 			j_pud_patfusty = {
-				name = "巨猴",
 				text = {
 					"{C:attention}+100{}卡牌選擇上限",
 					"{C:inactive}big monke{}",
@@ -433,6 +441,13 @@ return {
 					"回合結束時{C:dark_edition}+#1#{}小丑牌欄位",
  				},
 			},
+			j_sholium_sbrit = {
+				name = "超級脆化(v51)",
+				text = {
+					"手中的{C:attention}5{}",
+					"給予{C:blue}+#1#{}籌碼",
+				},
+			},
 			j_pud_sealpurple = {
 				name = "紫色隱者",
 				text = {
@@ -462,8 +477,13 @@ return {
 					"{C:inactive}不是，這不是綠色的吧...{}",
 				},
 			},
+			j_sholium_silas = {
+				text = {
+					"跳過補充包時產生一張{C:blue}Icicle{}",
+					"所有{C:blue}Icicle{}及{C:blue}Icicle小帳{}提供{C:red}+#1#{}倍率",
+				},
+			},
 			j_pud_redsauda = {
-				name = "紅色蘇打(v46)",
 				text = {
 					"{C:attention}第1張{}打出的牌計分時",
 					"交換{C:blue}籌碼{}和{C:red}倍率{}",
