@@ -1,4 +1,4 @@
 return {
 	sholextra = false,
-	pudding = false,
+	pudding = true,
 }
