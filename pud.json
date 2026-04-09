@@ -1,13 +1,13 @@
 {
-  "id": "puddlesofpudding",
-  "name": "PuddlesofPudding",
+  "id": "pudding",
+  "name": "Puddles of Pudding",
   "author": [
     "GreenKookie"
   ],
   "description": "back to where it begins",
   "prefix": "pud",
   "main_file": "main.lua",
-  "version": "3.6.0a",
+  "version": "3.6.1",
   "priority": 2026,
   "badge_colour": "228922",
   "badge_text_colour": "FFFFFF",
