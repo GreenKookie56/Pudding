@@ -441,7 +441,7 @@ return {
 					"回合結束時{C:dark_edition}+#1#{}小丑牌欄位",
  				},
 			},
-			j_sholium_sbrit = {
+			j_pud_sbrit = {
 				name = "超級脆化(v51)",
 				text = {
 					"手中的{C:attention}5{}",
@@ -477,7 +477,7 @@ return {
 					"{C:inactive}不是，這不是綠色的吧...{}",
 				},
 			},
-			j_sholium_silas = {
+			j_pud_silas = {
 				text = {
 					"跳過補充包時產生一張{C:blue}Icicle{}",
 					"所有{C:blue}Icicle{}及{C:blue}Icicle小帳{}提供{C:red}+#1#{}倍率",
