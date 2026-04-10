@@ -249,7 +249,7 @@ return {
 					"出牌時此數值乘以{C:red}#2#{}",
 				},
 			},
-			j_sholium_gluestorm = {
+			j_pud_gluestorm = {
 				name = "膠水風暴(v39+)",
 				text = {
 					"每兩次出牌重新觸發所有",
@@ -339,7 +339,7 @@ return {
 				name = "梅寶",
 				text = {
 					"打出牌結算前，所有小丑的數值",
-					"隨機改為目前數值的X0.8到X1.25倍",
+					"隨機改為目前數值的{C:attention}X0.8{}到{C:attention}X1.25{}倍",
 				},
 			},
 			j_pud_manyullynjoker = {
@@ -552,7 +552,7 @@ return {
 			j_pud_samurai = {
 				name = "武士",
 				text = {
-					"每7張牌計分時{X:red,C:white}X#1#{}倍率",
+					"每{C:attention}7{}張牌計分時{X:red,C:white}X#1#{}倍率",
 					"{C:inactive}(目前#2#/7){}"
 				},
 			},
