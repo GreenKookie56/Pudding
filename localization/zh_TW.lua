@@ -31,6 +31,14 @@ return {
 					"的{C:blue}籌碼{}{C:inactive}(+380){}",
 				},
 			},
+			j_pud_ancientidol = {
+				name = "遠古雕像",
+				text = {
+					"{C:red}-1{}消耗牌欄位",
+					"手中的{C:attention}#2#{}給予{X:red,C:white}X#1#{}倍率",
+					"{C:inactive}回合結束時重製點數{}",
+				},
+			},
 			j_pud_ancientmeme = {
 				text = {
 					"商店重骰時",
@@ -241,7 +249,7 @@ return {
 					"出牌時此數值乘以{C:red}#2#{}",
 				},
 			},
-			j_sholium_gluestorm = {
+			j_pud_gluestorm = {
 				name = "膠水風暴(v39+)",
 				text = {
 					"每兩次出牌重新觸發所有",
@@ -304,6 +312,13 @@ return {
 					"重新觸發打出的牌{C:attention}#1#次{}",
 				},
 			},
+			j_pud_kinggeorge = {
+				name = "喬治國王",
+				text = {
+					"回合結束時賺取{C:gold}$#1#{}",
+					"打出的{C:diamonds}方塊{}牌計分時此數值{C:gold}+$#2#{}",
+				},
+			},
 			j_pud_literallycryptid = {
 				name = "很神秘的生物",
 				text = {
@@ -318,6 +333,13 @@ return {
 					"{C:attention}Boss盲注{}被擊敗時，",
 					"產生一張{C:legendary}傳奇{}小丑",
 					"並{C:red}自我摧毀{}",				
+				},
+			},
+			j_pud_mabel = {
+				name = "梅寶",
+				text = {
+					"打出牌結算前，所有小丑的數值",
+					"隨機改為目前數值的{C:attention}X0.8{}到{C:attention}X1.25{}倍",
 				},
 			},
 			j_pud_manyullynjoker = {
@@ -355,6 +377,13 @@ return {
 				text = {
 					"手中的牌有{C:green}#2#/#3#{}機率",
 					"給予{X:legendary,C:white}^#1#{}倍率",
+				},
+			},
+			j_pud_nksucks = {
+				name = "Ninja Kiwi 平衡 be like",
+				text = {
+					"回合結束時，若這張小丑兩側的小丑的數值均可調整，",
+					"{C:attention}左邊小丑{}數值{C:attention}砍半{}，{C:attention}右邊小丑{}數值{C:attention}翻倍{}",
 				},
 			},
 			j_pud_normaldistribution = {
@@ -441,7 +470,7 @@ return {
 					"回合結束時{C:dark_edition}+#1#{}小丑牌欄位",
  				},
 			},
-			j_sholium_sbrit = {
+			j_pud_sbrit = {
 				name = "超級脆化(v51)",
 				text = {
 					"手中的{C:attention}5{}",
@@ -477,7 +506,7 @@ return {
 					"{C:inactive}不是，這不是綠色的吧...{}",
 				},
 			},
-			j_sholium_silas = {
+			j_pud_silas = {
 				text = {
 					"跳過補充包時產生一張{C:blue}Icicle{}",
 					"所有{C:blue}Icicle{}及{C:blue}Icicle小帳{}提供{C:red}+#1#{}倍率",
@@ -520,6 +549,13 @@ return {
 					"{C:inactive,s:0.6}(逆時針旋轉120度){}"
  				},
 			},			
+			j_pud_samurai = {
+				name = "武士",
+				text = {
+					"每{C:attention}7{}張牌計分時{X:red,C:white}X#1#{}倍率",
+					"{C:inactive}(目前#2#/7){}"
+				},
+			},
 			j_pud_simultaneousdivergence = {
 				name = "共時性",
 				text = {
@@ -563,6 +599,12 @@ return {
 					"{C:attention}強制觸發{}右邊的小丑",
 				},
 			},
+			j_pud_tenthepurples = {
+				text = {
+					"選擇{C:attention}Boss盲注{}時，",
+					"{C:attention}取消{}盲注效果並{C:red}X2{}盲注大小",
+				},
+			},
 			j_pud_theblazingsun = {
 				name = "熾熱太陽",
 				text = {
@@ -584,6 +626,13 @@ return {
 					"{X:dark_edition,C:white}#1#{}倍率",
 					"若打出的牌包含{C:attention}同花順{}和{C:clubs}梅花{}{C:attention}7{}，",
 					"{X:dark_edition,C:white}運算符號{}升級一次",
+				},
+			},
+			j_pud_trex = {
+				name = "暴龍(v44-53)",
+				text = {
+					"打出的牌計分時{X:red,C:white}X#1#{}倍率",
+					"若計分的牌為{C:attention}倍率牌{}，改為{X:red,C:white}X#2#{}倍率",
 				},
 			},
 			j_pud_trickytracks = {
