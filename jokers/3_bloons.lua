@@ -776,7 +776,7 @@ SMODS.Joker{ --Super Brittle (v51)
     key = "sbrit",
     config = {
         extra = {
-            chips = 150
+            chips = 100
         }
     },
     loc_txt = {
@@ -798,7 +798,7 @@ SMODS.Joker{ --Super Brittle (v51)
         h = 95 * 1
     },
     cost = 5,
-    rarity = 2,
+    rarity = 1,
     blueprint_compat = true,
     demicoloncompat = true,
     eternal_compat = true,
