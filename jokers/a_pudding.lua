@@ -47,7 +47,7 @@ SMODS.Joker{ --Samurai
         h = 95 * 1
     },
     cost = 7,
-    rarity = 1,
+    rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
@@ -228,7 +228,7 @@ SMODS.Joker{ --Ninja Kiwi balance be like
         h = 95 * 1
     },
     cost = 7,
-    rarity = 2,
+    rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
