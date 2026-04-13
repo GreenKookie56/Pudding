@@ -82,7 +82,7 @@ SMODS.Joker{ --King George
     config = {
         extra = {
             eor = 3,
-            eor_mod = 0.2
+            eor_mod = 0.5
         }
     },
     loc_txt = {
@@ -159,7 +159,7 @@ SMODS.Joker{ --Mabel
         ['text'] = {
             [1] = 'When a hand is played,',
             [2] = '{C:attention}Randomize{} value of all Jokers',
-            [3] = 'by {C:attention}X0.8{} to {C:attention}X1.25{}'
+            [3] = 'by {C:attention}X0.8{} to {C:attention}X1.3{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -184,22 +184,221 @@ SMODS.Joker{ --Mabel
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.before then
+            local result = pseudorandom(pseudoseed("pud_mabel"), 80, 125)
             local check = false
             for i = 1, #G.jokers.cards do
                 if not (G.jokers.cards[i] == card) then
                     if not Card.no(G.jokers.cards[i], "immutable", true) then
                         check = true
-                        local result = pseudorandom(pseudoseed("pud_mabel"), 80, 125)
-						Cryptid.manipulate(G.jokers.cards[i], { value = result / 100 })
-                        return {message = "X"..tostring(result / 100), colour = G.C.DARK_EDITION}
+                        Cryptid.with_deck_effects(G.jokers.cards[i], function(cards)
+                            Cryptid.misprintize(cards, {
+                                min = lenient_bignum(result / 100),
+                                max = lenient_bignum(result / 100),
+                            }, nil, true)
+                        end)
                     end
                 end
             end
             if check then
+                card_eval_status_text(card, "extra", nil, nil, nil, { message = "X"..tostring(result / 100), colour = G.C.GREEN })
             end
         end
     end
 }
+end
+SMODS.Joker{ --Loaf
+    key = "loaf",
+    config = {
+        extra = {
+            chips_mod = 5,
+            chips = 0,
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Loaf',
+        ['text'] = {
+            [1] = 'This Joker gains {C:blue}+#1#{} Chips for',
+            [2] = 'each unused {C:blue}Hands{} and {C:red}Discards{}',
+            [3] = 'at the end of round',
+            [4] = '{C:inactive}(Currently {}{C:blue}+#2#{}{C:inactive} Chips){}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    pos = {
+        x = 2,
+        y = 9
+    },
+    display_size = {
+        w = 71 * 1, 
+        h = 95 * 1
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    demicoloncompat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'CustomJokers',
+    
+    loc_vars = function(self, info_queue, card)
+        
+        return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main  then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+        if context.end_of_round and context.game_over == false and context.main_eval  and not context.blueprint then
+            local chips_value = card.ability.extra.chips
+            return {
+                func = function()
+                    card.ability.extra.chips = (card.ability.extra.chips) + ((G.GAME.current_round.hands_left or 0) + (G.GAME.current_round.discards_left or 0)) * card.ability.extra.chips_mod
+                    return true
+                end,
+                message = localize('k_upgrade_ex')
+            }
+        end
+        if context.forcetrigger then
+            card.ability.extra.chips = (card.ability.extra.chips) + ((G.GAME.current_round.hands_left or 0) + (G.GAME.current_round.discards_left or 0)) * card.ability.extra.chips_mod
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end
+}
+
+SMODS.Joker{ --Tom
+    key = "tom",
+    config = {
+        extra = {
+            mult_mod = 2,
+            mult = 0
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Tom',
+        ['text'] = {
+            [1] = 'This Joker gains {C:red}+#1#{} Mult',
+            [2] = 'when each played {C:attention}4{} is scored',
+            [3] = '{C:inactive}(Currently {}{C:red}+#2#{}{C:inactive} Mult){}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    pos = {
+        x = 3,
+        y = 9
+    },
+    display_size = {
+        w = 71 * 1, 
+        h = 95 * 1
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    demicoloncompat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'CustomJokers',
+    
+    loc_vars = function(self, info_queue, card)
+        
+        return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play  and not context.blueprint then
+            if context.other_card:get_id() == 4 then
+                return {
+                    func = function()
+                    card.ability.extra.mult = (card.ability.extra.mult) + card.ability.extra.mult_mod
+                        return true
+                    end,
+                    message = localize('k_upgrade_ex')
+                }
+            end
+        end
+        if context.cardarea == G.jokers and context.joker_main  then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+        if context.forcetrigger then
+            card.ability.extra.mult = (card.ability.extra.mult) + card.ability.extra.mult_mod
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}
+
+SMODS.Joker{ --Ellen
+    key = "ellen",
+    config = {
+        extra = {
+            xmult = 3
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Ellen',
+        ['text'] = {
+            [1] = '{X:red,C:white}X#1#{} Mult if played',
+            [2] = '{C:attention}poker hand{} hasn\'t been',
+            [3] = 'played this round before'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    pos = {
+        x = 4,
+        y = 9
+    },
+    display_size = {
+        w = 71 * 1, 
+        h = 95 * 1
+    },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+    demicoloncompat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'CustomJokers',
+    
+    loc_vars = function(self, info_queue, card)
+        
+        return {vars = {card.ability.extra.xmult}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main  then
+            if not (G.GAME.hands[context.scoring_name] and G.GAME.hands[context.scoring_name].played_this_round > 1) then
+                return {
+                    Xmult = card.ability.extra.xmult
+                }
+            end
+        end
+        if context.forcetrigger then
+            return {
+                Xmult = card.ability.extra.xmult
+            }
+        end
+    end
+}
+if Cryptid then
 SMODS.Joker{ --Ninja Kiwi balance be like
     key = "nksucks",
     config = {
@@ -270,148 +469,6 @@ SMODS.Joker{ --Ninja Kiwi balance be like
 		end
 	end
 }
-
-SMODS.Joker{ --Buchi
-    key = "buchi",
-    config = {
-        extra = {
-            mult = 0.9,
-            active = 0,
-            scale = 0.05
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Buchi',
-        ['text'] = {
-            [1] = '{X:legendary,C:white}^#1#{} Mult',
-            [2] = 'Decrease by {X:legendary,C:white}#3#{}',
-            [3] = 'when a hand is played',
-            [4] = 'Permanently sets to {X:legendary,C:white}^3.57{} Mult',
-            [5] = 'once this reaches {X:legendary,C:white}0{}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
-    pos = {
-        x = 2,
-        y = 4
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
-    cost = 6,
-    rarity = 3,
-    blueprint_compat = true,
-    demicoloncompat = true,
-    eternal_compat = false,
-    perishable_compat = false,
-    unlocked = true,
-    discovered = true,
-    atlas = 'CustomJokers',
-
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.mult, card.ability.extra.active, card.ability.extra.scale}}
-    end,
-
-    calculate = function(self, card, context)
-        if context.before and context.cardarea == G.jokers  and not context.blueprint then
-            if ((card.ability.extra.active or 0) == 0 and (card.ability.extra.mult or 0) > 0) and not context.forcetrigger then
-                return {
-                    func = function()
-                    card.ability.extra.mult = math.max(0, (card.ability.extra.mult) - card.ability.extra.scale)
-                    return true
-                end
-                }
-            elseif ((card.ability.extra.active or 0) == 0 and (card.ability.extra.mult or 0) <= 0) and not context.forcetrigger then
-                return {
-                    func = function()
-                    card.ability.extra.mult = 3.57
-                    return true
-                end,
-                    extra = {
-                        func = function()
-                    card.ability.extra.active = 1
-                    return true
-                end,
-                        colour = G.C.BLUE
-                        }
-                }
-            end
-        end
-        if context.cardarea == G.jokers and context.joker_main then
-                return {
-                    e_mult = card.ability.extra.mult
-                }
-        end
-        if context.forcetrigger and card.ability.extra.active == 0 then
-                return {
-                    func = function()
-                    card.ability.extra.mult = 3.57
-                    return true
-                end,
-                    extra = {
-                        func = function()
-                    card.ability.extra.active = 1
-                    return true
-                end,
-                        colour = G.C.BLUE
-                        }
-                }
-        end
-        if context.forcetrigger and card.ability.extra.active ~= 0 then
-                return {
-                    e_mult = card.ability.extra.mult
-                }
-        end
-    end
-}
-
-SMODS.Joker{ --Taisho
-	key = "taisho",
-	rarity = 3,
-	cost = 9,
-  loc_txt = {
-        ['name'] = 'Taisho',
-        ['text'] = {
-            [1] = '{C:attention}Force-trigger{} the Joker to the right',
-            [2] = 'for the last hand of the round'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
-	blueprint_compat = false,
-	demicoloncompat = true,
-  unlocked = true,
-  discovered = true,
-	pos = { x = 8, y = 5 },
-  atlas = 'CustomJokers',
-	calculate = function(self, card, context)
-	-- Thanks cryptid mod devs you're awesome
-		if context.joker_main and G.GAME.current_round.hands_left <= 0 and not context.blueprint then
-			for i = 1, #G.jokers.cards do
-				if G.jokers.cards[i] == card then
-					if Cryptid.demicolonGetTriggerable(G.jokers.cards[i + 1])[1] then
-						local results = Cryptid.forcetrigger(G.jokers.cards[i + 1], context)
-						if results and results.jokers then
-							results.jokers.message = localize("cry_demicolon")
-							results.jokers.colour = G.C.RARITY.cry_epic
-							results.jokers.sound = "cry_demitrigger"
-							return results.jokers
-						end
-						return {
-							message = localize("cry_demicolon"),
-							colour = G.C.RARITY.cry_epic,
-							sound = "cry_demitrigger",
-						}
-					end
-				end
-			end
-		end
-	end
-}
 end
 SMODS.Joker{ --Ten the purples
     key = "tenthepurples",
@@ -429,7 +486,7 @@ SMODS.Joker{ --Ten the purples
         }
     },
     pos = {
-        x = 2,
+        x = 5,
         y = 9
     },
     display_size = {
@@ -498,7 +555,7 @@ SMODS.Joker{ --Bing Bong
         }
     },
     pos = {
-        x = 3,
+        x = 8,
         y = 9
     },
     display_size = {
@@ -568,7 +625,7 @@ SMODS.Joker{ --Ancient idol
         }
     },
     pos = {
-        x = 4,
+        x = 9,
         y = 9
     },
     display_size = {
