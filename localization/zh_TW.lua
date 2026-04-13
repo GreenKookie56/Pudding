@@ -198,6 +198,13 @@ return {
 					"所有牌點數均視為{C:attention}7{}",
 				},
 			},
+			j_pud_ellen = {
+				name = "艾倫",
+				text = {
+					"若打出的牌型為本回合首次打出，",
+					"{X:red,C:white}X#1#{}倍率",
+				},
+			},
 			j_pud_ezili = {
 				text = {
 					"{C:purple}平衡{}{C:blue}籌碼{}和{C:red}倍率{}",
@@ -333,6 +340,14 @@ return {
 					"{C:attention}Boss盲注{}被擊敗時，",
 					"產生一張{C:legendary}傳奇{}小丑",
 					"並{C:red}自我摧毀{}",				
+				},
+			},
+			j_pud_loaf = {
+				name = "洛夫",
+				text = {
+					"回合結束時，每個剩餘的出牌和棄牌",
+					"為這張小丑提供+#1#籌碼",
+					"{C:inactive}(目前{}{C:blue}+#2#{}{C:inactive}籌碼){}",		
 				},
 			},
 			j_pud_mabel = {
@@ -626,6 +641,14 @@ return {
 					"{X:dark_edition,C:white}#1#{}倍率",
 					"若打出的牌包含{C:attention}同花順{}和{C:clubs}梅花{}{C:attention}7{}，",
 					"{X:dark_edition,C:white}運算符號{}升級一次",
+				},
+			},
+			j_pud_tom = {
+				name = "湯姆",
+				text = {
+					"打出的牌{C:red}4{}計分時，",
+					"這張小丑獲得{C:red}+#1#{}倍率",
+					"{C:inactive}(目前{}{C:red}+#2#{}{C:inactive}倍率){}",
 				},
 			},
 			j_pud_trex = {
