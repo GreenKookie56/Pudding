@@ -159,7 +159,7 @@ SMODS.Joker{ --Mabel
         ['text'] = {
             [1] = 'When a hand is played,',
             [2] = '{C:attention}Randomize{} value of all Jokers',
-            [3] = 'by {C:attention}X0.8{} to {C:attention}X1.3{}'
+            [3] = 'by {C:attention}X0.8{} to {C:attention}X1.25{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
