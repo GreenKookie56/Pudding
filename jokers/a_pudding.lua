@@ -114,7 +114,7 @@ SMODS.Joker{ --Mabel
     atlas = 'CustomJokers',
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.before or context.forcetrigger then
+        if (context.cardarea == G.jokers and context.before) or context.forcetrigger then
             local result = pseudorandom(pseudoseed("pud_mabel"), 80, 125)
             local check = false
             for i = 1, #G.jokers.cards do
