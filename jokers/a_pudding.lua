@@ -77,76 +77,6 @@ SMODS.Joker{ --Samurai
     end
 }
 
-SMODS.Joker{ --King George
-    key = "kinggeorge",
-    config = {
-        extra = {
-            eor = 3,
-            eor_mod = 0.5
-        }
-    },
-    loc_txt = {
-        ['name'] = 'King George',
-        ['text'] = {
-            [1] = 'Earn {C:gold}$#1#{} at end of round',
-            [2] = 'increases by {C:gold}+$#2#{} when each',
-            [3] = 'played {C:diamonds}Diamonds{} is scored'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
-    pos = {
-        x = 0,
-        y = 9
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
-    cost = 6,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
-    unlocked = true,
-    discovered = true,
-    atlas = 'CustomJokers',
-    
-    loc_vars = function(self, info_queue, card)
-        
-        return {vars = {lenient_bignum(card.ability.extra.eor), lenient_bignum(card.ability.extra.eor_mod)}}
-    end,
-    
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play  and not context.blueprint then
-            if context.other_card:is_suit("Diamonds") then
-                return {
-                    func = function()
-                    card.ability.extra.eor = lenient_bignum(card.ability.extra.eor) + lenient_bignum(card.ability.extra.eor_mod)
-                    return true
-                end,
-                    message = localize('k_upgrade_ex'),
-                    extra = {
-                        colour = G.C.MONEY
-                    }
-                }
-            end
-        end
-        if context.forcetrigger then
-            card.ability.extra.eor = lenient_bignum(card.ability.extra.eor) + lenient_bignum(card.ability.extra.eor_mod)
-                return {
-                    dollars = lenient_bignum(card.ability.extra.eor),
-                }
-        end
-    end,
-
-    calc_dollar_bonus = function(self, card)
-        if to_big(card.ability.extra.eor) > to_big(0) then
-            return lenient_bignum(card.ability.extra.eor)
-        end
-    end
-}
 if Cryptid then
 SMODS.Joker{ --Mabel
     key = "mabel",
@@ -176,6 +106,7 @@ SMODS.Joker{ --Mabel
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
+    demicoloncompat = true,
     eternal_compat = true,
     perishable_compat = false,
     unlocked = true,
@@ -183,7 +114,7 @@ SMODS.Joker{ --Mabel
     atlas = 'CustomJokers',
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.before then
+        if context.cardarea == G.jokers and context.before or context.forcetrigger then
             local result = pseudorandom(pseudoseed("pud_mabel"), 80, 125)
             local check = false
             for i = 1, #G.jokers.cards do
@@ -395,6 +326,78 @@ SMODS.Joker{ --Ellen
             return {
                 Xmult = card.ability.extra.xmult
             }
+        end
+    end
+}
+	
+SMODS.Joker{ --King George
+    key = "kinggeorge",
+    config = {
+        extra = {
+            eor = 3,
+            eor_mod = 0.5
+        }
+    },
+    loc_txt = {
+        ['name'] = 'King George',
+        ['text'] = {
+            [1] = 'Earn {C:gold}$#1#{} at end of round',
+            [2] = 'increases by {C:gold}+$#2#{} when each',
+            [3] = 'played {C:diamonds}Diamonds{} is scored'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    pos = {
+        x = 0,
+        y = 9
+    },
+    display_size = {
+        w = 71 * 1, 
+        h = 95 * 1
+    },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+	demicoloncompat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'CustomJokers',
+    
+    loc_vars = function(self, info_queue, card)
+        
+        return {vars = {lenient_bignum(card.ability.extra.eor), lenient_bignum(card.ability.extra.eor_mod)}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play  and not context.blueprint then
+            if context.other_card:is_suit("Diamonds") then
+                return {
+                    func = function()
+                    card.ability.extra.eor = lenient_bignum(card.ability.extra.eor) + lenient_bignum(card.ability.extra.eor_mod)
+                    return true
+                end,
+                    message = localize('k_upgrade_ex'),
+                    extra = {
+                        colour = G.C.MONEY
+                    }
+                }
+            end
+        end
+        if context.forcetrigger then
+            card.ability.extra.eor = lenient_bignum(card.ability.extra.eor) + lenient_bignum(card.ability.extra.eor_mod)
+                return {
+                    dollars = lenient_bignum(card.ability.extra.eor),
+                }
+        end
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        if to_big(card.ability.extra.eor) > to_big(0) then
+            return lenient_bignum(card.ability.extra.eor)
         end
     end
 }
