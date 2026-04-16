@@ -612,7 +612,7 @@ SMODS.Joker{ --Ancient idol
     config = {
         extra = {
             slot_change = '1',
-            xmult = 2.5
+            xmult = 3
         }
     },
     loc_txt = {
@@ -653,7 +653,7 @@ SMODS.Joker{ --Ancient idol
         if context.individual and context.cardarea == G.hand and not context.end_of_round  then
             if context.other_card:get_id() == G.GAME.current_round.idol_card.id then
                 return {
-                    Xmult = card.ability.extra.xmult
+                    Xmult = lenient_bignum(card.ability.extra.xmult)
                 }
             end
         end
