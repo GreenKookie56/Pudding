@@ -638,6 +638,7 @@ SMODS.Joker{ --Ancient idol
     cost = 9,
     rarity = 3,
     blueprint_compat = true,
+    demicolon_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -646,7 +647,7 @@ SMODS.Joker{ --Ancient idol
     
     loc_vars = function(self, info_queue, card)
         
-        return {vars = {card.ability.extra.xmult, localize((G.GAME.current_round.idol_card or {}).rank or 'Ace', 'ranks')}}
+        return {vars = {lenient_bignum(card.ability.extra.xmult), localize((G.GAME.current_round.idol_card or {}).rank or 'Ace', 'ranks')}}
     end,
     
     calculate = function(self, card, context)
@@ -671,6 +672,11 @@ SMODS.Joker{ --Ancient idol
                 G.GAME.current_round.idol_card.id = idol_card.base.id
             end
         end
+		if context.forcetrigger then
+            return {
+                 Xmult = lenient_bignum(card.ability.extra.xmult)
+            }
+		end
     end,
     
     add_to_deck = function(self, card, from_debuff)
